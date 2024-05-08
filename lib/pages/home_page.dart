@@ -11,6 +11,23 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(30),
+          ),
+        ),
+        title: Text(
+          'Shared Pref Sample',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 23,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Sans Serif',
+          ),
+        ),
+        automaticallyImplyLeading: false, //backbutton remove
         actions: [
           IconButton(
             onPressed: () {
@@ -19,17 +36,6 @@ class HomePage extends StatelessWidget {
             icon: Icon(Icons.logout),
           ),
         ],
-        title: const Text(
-          'Shared Pref Sample',
-          textAlign: TextAlign.center,
-        ),
-        titleTextStyle: const TextStyle(
-            color: Colors.white,
-            fontSize: 23,
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.normal,
-            fontFamily: 'Sans Serif'),
-        backgroundColor: Colors.green,
       ),
       body: Center(
         child: Column(
@@ -44,12 +50,13 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  signout(BuildContext ctx) async {
-    final _sharedPref = await SharedPreferences.getInstance();
+  void signout(BuildContext ctx) async {
+    final SharedPreferences _sharedPref = await SharedPreferences.getInstance();
     await _sharedPref.clear();
 
     Navigator.of(ctx).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (ctx) => LoginPage(title: 'Login Page')),
-        (route) => false);
+      MaterialPageRoute(builder: (ctx) => LoginPage(title: 'Login Page')),
+      (route) => false,
+    );
   }
 }
